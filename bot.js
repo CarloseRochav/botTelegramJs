@@ -37,8 +37,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var telegraf_1 = require("telegraf");
-var open = require("open");
+var open = require("open"); //Way to import node modules/javascript with typescript
+var _a = require('child_process'), exec = _a.exec, spawn = _a.spawn; //Execute Script files
 var bot = new telegraf_1.Telegraf("6231746650:AAG43wJNq4AmAPpodZgQhCcMV_EJtoAg3XY");
+// bot.use(TelegrafQuestion({
+//     cancelTimeout: 300000 // 5 min
+// }));//Time to do a questions
 //Envia cualquier mensaje de texto
 // bot.on(message('text'), async (ctx) => {
 //   // Explicit usage
@@ -46,7 +50,7 @@ var bot = new telegraf_1.Telegraf("6231746650:AAG43wJNq4AmAPpodZgQhCcMV_EJtoAg3X
 //   // Using context shortcut
 //   //await ctx.reply(`Hello ${ctx.state.role}`);
 // });
-bot.command("retro", function (ctx) { return __awaiter(void 0, void 0, void 0, function () {
+bot.command("chido", function (ctx) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, ctx.reply("Empieza lo chido")];
@@ -60,9 +64,42 @@ bot.command("retro", function (ctx) { return __awaiter(void 0, void 0, void 0, f
 bot.command(['p', 'P'], function (ctx) {
     //ctx.reply('Memoria Total : '+os.totalmem)
     console.log("Reproduciendo...");
-    openBozbulanikYT(); //Funcion to play sound in browser
-    //playSoundLocalSever()//Play song funcion server local... Works
+    //openBozbulanikYT()//Funcion to play sound in browser
+    playSoundLocalSever(); //Play song funcion server local... Works
     ctx.reply("...Bozbulanik");
+});
+//Abrir Script File
+bot.command("retro", function (ctx) {
+    scriptFileExec(); //Funcion para ejecutar script .bat con Exec
+    //scriptFileSpawn();//Funcion para ejecutar script .bat con Spawn
+    console.log("...Ejecutando");
+    ctx.reply("Se logro papi...The Perfect Girl");
+});
+//HACER Pregunta
+var username = "user";
+// bot.action('change_username', async (ctx, next) => {
+//     ctx.answerCbQuery();
+//     let newUsername = await ctx.ask('Send new username:');
+//     if (newUsername === null) {
+//         return next();
+//     }
+//     username = newUsername.message.text;
+//     next();
+// });
+// bot.use((ctx) => {
+//     ctx.reply(`Hi ${username}.`, Markup.inlineKeyboard([
+//         [Markup.callbackButton('Change username', 'change_username')],
+//     ]).extra());
+// });
+bot.command('data', function (ctx) {
+    var _a;
+    var email;
+    var password;
+    //Something like this
+    ctx.reply("Enter your username");
+    username = (_a = ctx.message) === null || _a === void 0 ? void 0 : _a.text;
+    console.log("New Username : " + username);
+    //ctx.reply("New Username : "+username)
 });
 bot.launch();
 // Enable graceful stop
@@ -100,3 +137,30 @@ var playSoundLocalSever = function () { return __awaiter(void 0, void 0, void 0,
         }
     });
 }); };
+//Execute Script 
+var scriptFileExec = function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, exec('sh openMareuxRetro.bat', function (error, stdout, stderr) {
+                    console.log(stdout);
+                    console.log(stderr);
+                    if (error !== null) {
+                        console.log("exec error: ".concat(error));
+                    }
+                })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };
+var scriptFileSpawn = function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, spawn('start', ['openMareuxRetro.bat'])];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); }; //Spawn ejecuta comandos , Pendiente no jala
