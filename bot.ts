@@ -7,10 +7,28 @@ import TelegrafQuestion from "telegraf-question";//To do questions
 
 
 const bot = new Telegraf("6231746650:AAG43wJNq4AmAPpodZgQhCcMV_EJtoAg3XY");
-// bot.use(TelegrafQuestion({
+
+// bot.use(TelegrafQuestion({ //To make question
 //     cancelTimeout: 300000 // 5 min
 // }));//Time to do a questions
 
+// var usernmae="Carlos";
+
+// bot.action('change_username', async (ctx, next) => {
+//     ctx.answerCbQuery();
+//     let newUsername = await ctx.ask('Send new username:');
+//     if (newUsername === null) {
+//         return next();
+//     }
+//     username = newUsername.message.text;
+//     next();
+// });
+
+// bot.use((ctx) => {
+//     ctx.reply(`Hi ${username}.`, Markup.inlineKeyboard([
+//         [Markup.callbackButton('Change username', 'change_username')],
+//     ]).extra());
+// });
 
 
 
@@ -49,45 +67,7 @@ bot.command(['p','P'], (ctx) =>{
         //scriptFileSpawn();//Funcion para ejecutar script .bat con Spawn
         console.log("...Ejecutando");
         ctx.reply("Se logro papi...The Perfect Girl");
-    })
-
-
-    //HACER Pregunta
-
-    var username="user";
-
-    // bot.action('change_username', async (ctx, next) => {
-    //     ctx.answerCbQuery();
-    //     let newUsername = await ctx.ask('Send new username:');
-    //     if (newUsername === null) {
-    //         return next();
-    //     }
-    //     username = newUsername.message.text;
-    //     next();
-    // });
-    
-    // bot.use((ctx) => {
-    //     ctx.reply(`Hi ${username}.`, Markup.inlineKeyboard([
-    //         [Markup.callbackButton('Change username', 'change_username')],
-    //     ]).extra());
-    // });
-
-    bot.command('data',(ctx) => {
-        let email;
-        let password;
-        
-        //Something like this
-        ctx.reply("Enter your username");
-        username = ctx.message?.text;    
-
-        console.log("New Username : "+username)
-        //ctx.reply("New Username : "+username)
-        
-    });//Pendienteee
-    
-
-
-  
+    })  
 
 
 bot.launch();

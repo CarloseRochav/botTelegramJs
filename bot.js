@@ -39,10 +39,35 @@ exports.__esModule = true;
 var telegraf_1 = require("telegraf");
 var open = require("open"); //Way to import node modules/javascript with typescript
 var _a = require('child_process'), exec = _a.exec, spawn = _a.spawn; //Execute Script files
+var telegraf_question_1 = require("telegraf-question"); //To do questions
 var bot = new telegraf_1.Telegraf("6231746650:AAG43wJNq4AmAPpodZgQhCcMV_EJtoAg3XY");
-// bot.use(TelegrafQuestion({
-//     cancelTimeout: 300000 // 5 min
-// }));//Time to do a questions
+bot.use((0, telegraf_question_1["default"])({
+    cancelTimeout: 300000 // 5 min
+})); //Time to do a questions
+var usernmae = "Carlos";
+bot.action('change_username', function (ctx, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var newUsername;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                ctx.answerCbQuery();
+                return [4 /*yield*/, ctx.ask('Send new username:')];
+            case 1:
+                newUsername = _a.sent();
+                if (newUsername === null) {
+                    return [2 /*return*/, next()];
+                }
+                username = newUsername.message.text;
+                next();
+                return [2 /*return*/];
+        }
+    });
+}); });
+bot.use(function (ctx) {
+    ctx.reply("Hi ".concat(username, "."), telegraf_1.Markup.inlineKeyboard([
+        [telegraf_1.Markup.callbackButton('Change username', 'change_username')],
+    ]).extra());
+});
 //Envia cualquier mensaje de texto
 // bot.on(message('text'), async (ctx) => {
 //   // Explicit usage
@@ -74,32 +99,6 @@ bot.command("retro", function (ctx) {
     //scriptFileSpawn();//Funcion para ejecutar script .bat con Spawn
     console.log("...Ejecutando");
     ctx.reply("Se logro papi...The Perfect Girl");
-});
-//HACER Pregunta
-var username = "user";
-// bot.action('change_username', async (ctx, next) => {
-//     ctx.answerCbQuery();
-//     let newUsername = await ctx.ask('Send new username:');
-//     if (newUsername === null) {
-//         return next();
-//     }
-//     username = newUsername.message.text;
-//     next();
-// });
-// bot.use((ctx) => {
-//     ctx.reply(`Hi ${username}.`, Markup.inlineKeyboard([
-//         [Markup.callbackButton('Change username', 'change_username')],
-//     ]).extra());
-// });
-bot.command('data', function (ctx) {
-    var _a;
-    var email;
-    var password;
-    //Something like this
-    ctx.reply("Enter your username");
-    username = (_a = ctx.message) === null || _a === void 0 ? void 0 : _a.text;
-    console.log("New Username : " + username);
-    //ctx.reply("New Username : "+username)
 });
 bot.launch();
 // Enable graceful stop
